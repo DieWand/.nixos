@@ -139,7 +139,7 @@ in
     };
     Service = {
       Type = "oneshot";
-      ExecStart = "-${pkgs.asusctl}/bin/asusctl aura effect static -c ${config.lib.stylix.colors.base0D}";
+      ExecStart = "-${pkgs.asusctl}/bin/asusctl aura effect static -c ${config.lib.stylix.colors.base0C}";
     };
     Install.WantedBy = [ "graphical-session.target" ];
   };

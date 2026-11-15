@@ -95,13 +95,18 @@ Zentrale Stelle: `modules/nixos/theme.nix`. Stylix färbt GNOME, GTK-Programme,
 Ghostty, Zed, Firefox, den Prompt, den Boot-Bildschirm und die
 Tastaturbeleuchtung einheitlich.
 
-**Wallpaper bestimmt die Farben:** Bild als `wallpapers/wallpaper.png` (oder
-`.jpg`/`.jpeg`) ablegen, `git add wallpapers`, `just switch`. Stylix leitet die
-Palette aus dem Bild ab. Ohne Bild gilt das Platzhalter-Schema (Tokyo Night).
+**Farben:** `themes/hangar.yaml` – ein handabgestimmtes Schema passend zum
+Wallpaper-Pack (fast schwarzer Petrol-Grund, Salbei-Grautöne, knochenweiße
+Schrift, Signalrot und Petrol als Akzente). Einzelne Farben dort ändern,
+`just switch`.
+
+**Wallpaper:** Bild als `wallpapers/wallpaper.png` (oder `.jpg`/`.jpeg`)
+ablegen, `git add wallpapers`, `just switch`.
 
 | Was | Einstellung in `theme.nix` |
 | --- | --- |
-| Festes Farbschema statt aus dem Bild | `base16Scheme` ohne die `mkIf`-Bedingung – Dateiname aus <https://tinted-theming.github.io/tinted-gallery/> |
+| Anderes Schema | `base16Scheme` – eigene Datei unter `themes/` oder ein fertiges aus <https://tinted-theming.github.io/tinted-gallery/> |
+| Farben aus dem Wallpaper ableiten | Zeile `base16Scheme` löschen |
 | Hell/Dunkel | `polarity` |
 | Transparenz des Terminals | `opacity.terminal` |
 | Symbole | `icons` (Papirus) |

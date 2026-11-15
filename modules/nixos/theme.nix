@@ -3,7 +3,6 @@
 { pkgs, lib, ... }:
 let
   # Wallpaper: Datei als wallpapers/wallpaper.png (oder .jpg/.jpeg) ablegen.
-  # Sobald sie da ist, leitet Stylix das komplette Farbschema aus dem Bild ab.
   wallpaper = lib.findFirst builtins.pathExists null [
     ../../wallpapers/wallpaper.png
     ../../wallpapers/wallpaper.jpg
@@ -15,13 +14,11 @@ in
     enable = true;
     polarity = "dark";
 
-    # Farben: aus dem Wallpaper, sonst dieses Schema als Platzhalter.
-    # Festes Schema trotz Wallpaper erzwingen: mkIf-Bedingung entfernen.
-    # Alle Schemata: https://tinted-theming.github.io/tinted-gallery/
+    # Farben: handabgestimmtes Schema (themes/hangar.yaml), passend zum
+    # Wallpaper-Pack. Zeile löschen = Stylix leitet die Farben aus dem
+    # Wallpaper ab. Fertige Schemata: "${pkgs.base16-schemes}/share/themes/<name>.yaml"
+    base16Scheme = ../../themes/hangar.yaml;
     image = lib.mkIf (wallpaper != null) wallpaper;
-    base16Scheme = lib.mkIf (
-      wallpaper == null
-    ) "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
 
     # Leicht durchscheinendes Terminal.
     opacity.terminal = 0.9;
@@ -39,8 +36,9 @@ in
         name = "JetBrainsMono Nerd Font";
       };
       sansSerif = {
-        package = pkgs.inter;
-        name = "Inter";
+        # Technischer Charakter, passend zur HUD-Typografie der Wallpaper.
+        package = pkgs.ibm-plex;
+        name = "IBM Plex Sans";
       };
       serif = {
         package = pkgs.noto-fonts;

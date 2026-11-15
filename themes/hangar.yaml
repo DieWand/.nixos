@@ -1,0 +1,24 @@
+# Handabgestimmtes Farbschema passend zum Wallpaper-Pack:
+# fast schwarzer, leicht ins Petrol gehender Grund, entsättigte Salbei-/
+# Grautöne, knochenweiße Schrift, Signalrot und Petrol-Leuchten als Akzente.
+system: "base16"
+name: "Hangar"
+author: "nschulze"
+variant: "dark"
+palette:
+  base00: "0e1414" # Hintergrund
+  base01: "182020" # Leisten, Flächen
+  base02: "243030" # Auswahl
+  base03: "485a56" # Kommentare, inaktiv
+  base04: "788886" # gedämpfter Text
+  base05: "c2cdc6" # Text
+  base06: "dde5de" # heller Text
+  base07: "f4f2e8" # Knochenweiß
+  base08: "e5533d" # Signalrot
+  base09: "e8893f" # Orange
+  base0A: "d8b76a" # gedecktes Gelb
+  base0B: "7fb88f" # Mint
+  base0C: "5fb5ad" # Petrol-Leuchten
+  base0D: "5a93b5" # Stahlblau (Hauptakzent)
+  base0E: "e87a8c" # Koralle/Pink
+  base0F: "a8502f" # Rostbraun
