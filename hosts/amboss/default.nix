@@ -16,6 +16,7 @@
     ../../modules/nixos/networking.nix
     ../../modules/nixos/users.nix
     ../../modules/nixos/dev.nix
+    ../../modules/nixos/gaming.nix
     ../../modules/nixos/theme.nix
 
     # TODO(hardware): sobald das genaue Modell feststeht, das passende

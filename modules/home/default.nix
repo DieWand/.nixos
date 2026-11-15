@@ -9,6 +9,7 @@
     ./git.nix
     ./editor.nix
     ./dev.nix
+    ./shortcuts.nix
   ];
 
   home.username = "nschulze";

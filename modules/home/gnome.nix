@@ -32,7 +32,10 @@
         "com.mitchellh.ghostty.desktop"
         "dev.zed.Zed.desktop"
         "org.gnome.Nautilus.desktop"
+        "steam.desktop"
         "org.gnome.Settings.desktop"
+        "amboss-gpu-mode.desktop"
+        "amboss-update.desktop"
       ];
     };
     "org/gnome/shell/extensions/dash-to-dock" = {

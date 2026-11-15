@@ -6,6 +6,11 @@ default:
 switch:
     sudo nixos-rebuild switch --flake .#amboss
 
+# Neuesten Stand aus Git holen und anwenden
+sync:
+    git pull --ff-only
+    sudo nixos-rebuild switch --flake .#amboss
+
 # Änderungen testen, ohne sie ins Bootmenü zu übernehmen (Neustart = alter Stand)
 test:
     sudo nixos-rebuild test --flake .#amboss
