@@ -6,6 +6,7 @@
     extensions = [
       { package = pkgs.gnomeExtensions.dash-to-dock; } # dauerhaft sichtbares Dock
       { package = pkgs.gnomeExtensions.appindicator; } # Tray-Icons
+      { package = pkgs.gnomeExtensions.gpu-supergfxctl-switch; } # Grafikmodus per Klick
       # Ricing-Kandidaten für später:
       # { package = pkgs.gnomeExtensions.blur-my-shell; }
       # { package = pkgs.gnomeExtensions.just-perfection; }

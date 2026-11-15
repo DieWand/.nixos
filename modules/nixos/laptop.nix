@@ -13,7 +13,11 @@
   # SSD-Pflege
   services.fstrim.enable = true;
 
-  # TODO(hardware): bei bestätigtem ASUS-Gerät aktivieren
-  # (Lüfterprofile, Tastaturbeleuchtung, Ladegrenze):
-  # services.asusd.enable = true;
+  # ASUS-Dienste: Lüfterprofile, Tastaturbeleuchtung, Ladegrenze (asusd)
+  # und Grafik-Umschaltung inkl. MUX-Switch (supergfxd).
+  # Modi: Integrated (nur AMD, sparsam) | Hybrid (Standard) | AsusMuxDgpu
+  # (Bildschirm direkt an Nvidia, beste Leistung). Umschalten per
+  # GNOME-Schnellmenü oder `supergfxctl -m <Modus>`; MUX braucht einen Neustart.
+  services.asusd.enable = true;
+  services.supergfxd.enable = true;
 }
