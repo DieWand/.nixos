@@ -3,6 +3,9 @@
 Komplettes NixOS-Setup inkl. Dotfiles. Ziel: Laptop löschen → aus diesem Repo
 wiederherstellen.
 
+Ausführliche Dokumentation: [docs/](docs/README.md) – Konzept, Installation,
+Alltag, Anpassen, Daten & Secrets, Fehlerbehebung, Hardware.
+
 ## Spickzettel (Alltag)
 
 Im Repo-Ordner (`~/.nixos`) ausführen. `just` ohne Argumente zeigt alle Befehle.
@@ -70,6 +73,8 @@ Programme stehen nicht im Repo und müssen nach einem Wipe neu geklickt werden.
 flake.nix                 Einstiegspunkt, Versionen der Quellen
 justfile                  Kurzbefehle
 install.sh                Neuinstallation in einem Schritt
+docs/                     ausführliche Dokumentation
+scripts/hardware-info.sh  sammelt Hardware-Daten
 hosts/amboss/             dieses Gerät: Hardware, Partitionierung
 modules/nixos/            System: Boot, Desktop, Nvidia, Netzwerk, Docker, Steam, Theme,
                           Snapshots, Secrets, Backup
