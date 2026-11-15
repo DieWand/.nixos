@@ -25,6 +25,23 @@
 
   services.printing.enable = true;
 
+  # Flatpak: Programme per Klick über die App „Software“ installieren
+  # (Spotify, Discord, …). Diese Apps stehen NICHT im Repo.
+  services.flatpak.enable = true;
+  systemd.services.flatpak-flathub = {
+    description = "Flathub als Flatpak-Quelle eintragen";
+    wantedBy = [ "multi-user.target" ];
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
+    path = [ pkgs.flatpak ];
+    script = "flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo";
+    serviceConfig = {
+      Type = "oneshot";
+      Restart = "on-failure";
+      RestartSec = 60;
+    };
+  };
+
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans

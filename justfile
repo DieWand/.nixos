@@ -36,3 +36,36 @@ check:
 # Nix-Dateien formatieren
 fmt:
     nix fmt
+
+# Secrets einmalig einrichten (Schlüssel erzeugen, verschlüsselte Datei anlegen)
+secrets-init:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    key=/var/lib/sops-nix/key.txt
+    if ! sudo test -f "$key"; then
+      sudo mkdir -p "$(dirname "$key")"
+      sudo age-keygen -o "$key"
+      sudo chmod 600 "$key"
+    fi
+    pub="$(sudo age-keygen -y "$key")"
+    printf 'creation_rules:\n  - path_regex: secrets/.*\\.yaml$\n    age: %s\n' "$pub" > .sops.yaml
+    if [ ! -f secrets/secrets.yaml ]; then
+      mkdir -p secrets
+      printf 'restic:\n  password: %s\n' "$(head -c 32 /dev/urandom | base64)" > secrets/secrets.yaml
+      sops --encrypt --in-place secrets/secrets.yaml
+    fi
+    git add .sops.yaml secrets
+    echo
+    echo "Fertig. Diesen privaten Schlüssel JETZT im Passwortmanager speichern:"
+    echo
+    sudo grep AGE-SECRET-KEY "$key"
+    echo
+    echo "Danach: just switch, dann committen und pushen."
+
+# Secrets bearbeiten (öffnet die entschlüsselte Datei im Editor)
+secrets:
+    SOPS_AGE_KEY="$(sudo grep AGE-SECRET-KEY /var/lib/sops-nix/key.txt)" sops secrets/secrets.yaml
+
+# Backup sofort starten
+backup:
+    sudo systemctl start restic-backups-home.service

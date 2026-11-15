@@ -36,6 +36,34 @@ einen älteren Eintrag auswählen – die letzten 10 Stände bleiben erhalten.
 **Programm installieren:** Paketnamen auf <https://search.nixos.org/packages>
 suchen, in `modules/home/*.nix` unter `home.packages` eintragen, `just switch`.
 
+## Daten, Secrets, Programme
+
+**Datei versehentlich gelöscht/überschrieben?** App *Btrfs Assistant* → Snapper →
+Snapshot wählen → Datei zurückholen. Snapshots von `/home` entstehen stündlich
+(aufbewahrt: 10 stündliche, 7 tägliche, 4 wöchentliche). Sie liegen auf derselben
+Platte und ersetzen kein Backup.
+
+**Backup** (restic, verschlüsselt) – läuft erst, wenn beides erledigt ist:
+
+1. `just secrets-init` (einmalig, siehe unten)
+2. Ziel in `hosts/amboss/default.nix` eintragen (`amboss.backup.repository`),
+   dann `just switch`
+
+Danach täglich automatisch; verpasste Läufe werden nach dem Einschalten
+nachgeholt. Sofort starten: `just backup`. Wiederherstellen:
+`sudo restic -r <ziel> -p /run/secrets/restic/password restore latest --target /`.
+
+**Secrets** liegen verschlüsselt in `secrets/secrets.yaml`:
+
+- `just secrets-init` – einmalig. Zeigt am Ende den privaten Schlüssel:
+  **im Passwortmanager speichern**, ohne ihn sind Secrets und Backup nach einem
+  Wipe nicht mehr lesbar. Die Neuinstallation fragt danach.
+- `just secrets` – bearbeiten. Neue Einträge zusätzlich in
+  `modules/nixos/secrets.nix` anmelden.
+
+**Programme per Klick:** App *Software* (Flatpak/Flathub). So installierte
+Programme stehen nicht im Repo und müssen nach einem Wipe neu geklickt werden.
+
 ## Aufbau
 
 ```
@@ -43,8 +71,10 @@ flake.nix                 Einstiegspunkt, Versionen der Quellen
 justfile                  Kurzbefehle
 install.sh                Neuinstallation in einem Schritt
 hosts/amboss/             dieses Gerät: Hardware, Partitionierung
-modules/nixos/            System: Boot, Desktop, Nvidia, Netzwerk, Docker, Steam, Theme
+modules/nixos/            System: Boot, Desktop, Nvidia, Netzwerk, Docker, Steam, Theme,
+                          Snapshots, Secrets, Backup
 modules/home/             Benutzer: GNOME, Firefox, Shell, Terminal, Editoren, Dev-Tools, Verknüpfungen
+secrets/                  verschlüsselte Secrets (entsteht durch `just secrets-init`)
 dotfiles/                 rohe Config-Dateien ohne eigenes Modul
 wallpapers/               Hintergrundbilder
 ```
@@ -75,4 +105,4 @@ Einmalig: `rustup default stable`, in Steam/JetBrains/Firefox anmelden.
 ## Offene Punkte
 
 Im Code mit `TODO(hardware)` markiert: genaues Modell, Festplattenname,
-Nvidia-Bus-IDs, ASUS-Dienste.
+Nvidia-Bus-IDs. Außerdem: Backup-Ziel festlegen.

@@ -43,6 +43,11 @@
                     mountpoint = "/home";
                     mountOptions = opts;
                   };
+                  # Ablage der /home-Snapshots (snapper).
+                  "@home-snapshots" = {
+                    mountpoint = "/home/.snapshots";
+                    mountOptions = opts;
+                  };
                   "@nix" = {
                     mountpoint = "/nix";
                     mountOptions = opts;

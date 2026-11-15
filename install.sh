@@ -46,6 +46,20 @@ if grep -q PLATZHALTER "$HW_FILE"; then
   nixos-generate-config --no-filesystems --root /mnt --show-hardware-config > "$HW_FILE"
 fi
 
+if [ -f "$REPO/secrets/secrets.yaml" ]; then
+  echo "==> Secrets-Schlüssel"
+  echo "Privaten age-Schlüssel aus dem Passwortmanager einfügen (AGE-SECRET-KEY-…),"
+  read -r -s -p "leer lassen zum Überspringen: " agekey
+  echo
+  if [ -n "$agekey" ]; then
+    install -d -m 700 /mnt/var/lib/sops-nix
+    (umask 077; printf '%s\n' "$agekey" > /mnt/var/lib/sops-nix/key.txt)
+  else
+    echo "Übersprungen – Secrets (und Backup) funktionieren erst, wenn der Schlüssel"
+    echo "unter /var/lib/sops-nix/key.txt liegt."
+  fi
+fi
+
 # Flakes sehen nur Dateien, die Git kennt.
 git -C "$REPO" add -A
 

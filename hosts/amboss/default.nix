@@ -18,6 +18,9 @@
     ../../modules/nixos/dev.nix
     ../../modules/nixos/gaming.nix
     ../../modules/nixos/theme.nix
+    ../../modules/nixos/snapshots.nix
+    ../../modules/nixos/secrets.nix
+    ../../modules/nixos/backup.nix
 
     # TODO(hardware): sobald das genaue Modell feststeht, das passende
     # nixos-hardware-Modul ergänzen, z. B.:
@@ -25,6 +28,9 @@
   ];
 
   networking.hostName = "amboss";
+
+  # Backup-Ziel – noch offen. Eintragen, dann `just switch` (siehe backup.nix).
+  # amboss.backup.repository = "sftp:user@server:/backups/amboss";
 
   home-manager = {
     useGlobalPkgs = true;
