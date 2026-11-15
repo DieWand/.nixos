@@ -91,23 +91,37 @@ GNOME-Oberfläche um, setzt der nächste `switch` ihn zurück.
 
 ## Aussehen (Ricing)
 
-Zentrale Stelle: `modules/nixos/theme.nix`.
+Zentrale Stelle: `modules/nixos/theme.nix`. Stylix färbt GNOME, GTK-Programme,
+Ghostty, Zed, Firefox, den Prompt, den Boot-Bildschirm und die
+Tastaturbeleuchtung einheitlich.
 
-| Was | Einstellung |
+**Wallpaper bestimmt die Farben:** Bild als `wallpapers/wallpaper.png` (oder
+`.jpg`/`.jpeg`) ablegen, `git add wallpapers`, `just switch`. Stylix leitet die
+Palette aus dem Bild ab. Ohne Bild gilt das Platzhalter-Schema (Tokyo Night).
+
+| Was | Einstellung in `theme.nix` |
 | --- | --- |
-| Farbschema | `base16Scheme` – Dateiname aus <https://tinted-theming.github.io/tinted-gallery/> |
+| Festes Farbschema statt aus dem Bild | `base16Scheme` ohne die `mkIf`-Bedingung – Dateiname aus <https://tinted-theming.github.io/tinted-gallery/> |
 | Hell/Dunkel | `polarity` |
-| Hintergrundbild | Datei nach `wallpapers/`, `image = ../../wallpapers/datei.png;` (ohne `base16Scheme` leitet Stylix die Farben aus dem Bild ab) |
+| Transparenz des Terminals | `opacity.terminal` |
+| Symbole | `icons` (Papirus) |
 | Schriften, Größen | `fonts` |
 | Mauszeiger | `cursor` |
+| Boot-Animation | Abschnitt `boot` (Plymouth) |
 
-Stylix färbt GNOME, GTK-Programme, Ghostty, Zed, Firefox und den Prompt
-einheitlich. Einzelne Programme ausnehmen: `stylix.targets.<name>.enable = false;`.
+| Baustein | Wo |
+| --- | --- |
+| Milchglas (Blur my Shell), schlanke Leiste (Just Perfection), runde Fensterecken, Fenster-Effekte (Burn My Windows) | `programs.gnome-shell.extensions` in `modules/home/gnome.nix`. Feineinstellung per Maus in der App *Erweiterungen* |
+| Schwebendes Dock | `dash-to-dock` in `gnome.nix` |
+| Firefox im GNOME-Stil | `firefoxGnomeTheme` in `modules/home/browser.nix` |
+| Systeminfo beim Öffnen des Terminals | `interactiveShellInit` in `modules/home/shell.nix` |
+| Tastaturbeleuchtung in Akzentfarbe | `amboss-keyboard-light` in `modules/home/shortcuts.nix` |
+
+Hakt nach einem GNOME-Versionssprung eine Erweiterung: Zeile in `gnome.nix`
+auskommentieren, `just switch`. Der Desktop selbst läuft auch ohne sie.
+
+Einzelne Programme vom Färben ausnehmen: `stylix.targets.<name>.enable = false;`.
 Die JetBrains-IDEs werden nicht erfasst – Theme dort in der IDE wählen.
-
-Weitere Stellschrauben: GNOME-Erweiterungen (z. B. Blur my Shell, Just
-Perfection – in `gnome.nix` vorbereitet), `programs.starship.settings`,
-Ghostty-`settings`, `fastfetch`.
 
 ## Rohe Dotfiles
 

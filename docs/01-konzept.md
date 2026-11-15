@@ -29,7 +29,7 @@ Laptop wird unregelmäßig benutzt – deshalb gilt:
 | Basis | NixOS 26.05 (stable), systemd-boot | `modules/nixos/core.nix` |
 | Festplatte | LUKS-Verschlüsselung, btrfs, zram-Swap (disko) | `hosts/amboss/disko.nix` |
 | Desktop | GNOME auf Wayland, PipeWire, Flatpak | `modules/nixos/desktop.nix` |
-| Aussehen | Stylix: ein Farbschema für alles | `modules/nixos/theme.nix` |
+| Aussehen | Stylix: Farben aus dem Wallpaper, Papirus-Icons, Plymouth, GNOME-Erweiterungen | `modules/nixos/theme.nix`, `modules/home/gnome.nix` |
 | Grafik | Nvidia-Treiber, Umschaltung über supergfxctl | `modules/nixos/nvidia.nix`, `laptop.nix` |
 | Laptop | Energieprofile, Bluetooth, Firmware, ASUS-Dienste | `modules/nixos/laptop.nix` |
 | Spiele | Steam, Proton-GE, GameMode, MangoHud | `modules/nixos/gaming.nix` |

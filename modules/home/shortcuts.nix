@@ -1,5 +1,10 @@
 # Verknüpfungen für die App-Übersicht / das Dock – alles per Maus bedienbar.
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
 let
   # Ab wie vielen Tagen an ein Software-Update erinnert wird.
   reminderDays = 14;
@@ -123,6 +128,20 @@ in
       Type = "simple";
       ExecStart = "${updateReminder}/bin/amboss-update-reminder";
     };
+  };
+
+  # Tastaturbeleuchtung in der Akzentfarbe des Farbschemas (nur RGB-Tastaturen;
+  # schlägt auf anderen Geräten folgenlos fehl).
+  systemd.user.services.amboss-keyboard-light = {
+    Unit = {
+      Description = "Tastaturbeleuchtung im Farbschema";
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "-${pkgs.asusctl}/bin/asusctl aura effect static -c ${config.lib.stylix.colors.base0D}";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
   };
 
   # Eine Minute nach dem Anmelden, danach einmal täglich.

@@ -11,6 +11,16 @@ der funktionierende Stand Standard wird.
 Meist der Nvidia-Treiber nach einem Update. Älteren Eintrag im Bootmenü wählen.
 Textkonsole zum Nachsehen: `Strg+Alt+F3`, anmelden, `journalctl -b -p err`.
 
+## Desktop sieht nach einem Update kaputt aus / Effekte fehlen
+
+Eine GNOME-Erweiterung verträgt die neue Version nicht. App *Erweiterungen*
+öffnen und die betroffene ausschalten, oder in `modules/home/gnome.nix`
+auskommentieren und `just switch`.
+
+## Beim Start nur ein Logo, keine Meldungen
+
+Gewollt (Boot-Animation). `Esc` blendet die Textmeldungen ein.
+
 ## Fernseher bleibt schwarz
 
 1. Grafikmodus prüfen – nicht *Integrated* (Dock: *Grafikmodus*).

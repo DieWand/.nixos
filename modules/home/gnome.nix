@@ -7,9 +7,14 @@
       { package = pkgs.gnomeExtensions.dash-to-dock; } # dauerhaft sichtbares Dock
       { package = pkgs.gnomeExtensions.appindicator; } # Tray-Icons
       { package = pkgs.gnomeExtensions.gpu-supergfxctl-switch; } # Grafikmodus per Klick
-      # Ricing-Kandidaten für später:
-      # { package = pkgs.gnomeExtensions.blur-my-shell; }
-      # { package = pkgs.gnomeExtensions.just-perfection; }
+
+      # Aussehen
+      { package = pkgs.gnomeExtensions.blur-my-shell; } # Milchglas für Leiste, Dock, Übersicht
+      { package = pkgs.gnomeExtensions.just-perfection; } # schlankere Leiste
+      # Die beiden folgenden sind am ehesten betroffen, wenn nach einem
+      # GNOME-Versionssprung etwas hakt – dann einfach auskommentieren.
+      { package = pkgs.gnomeExtensions.rounded-window-corners-reborn; }
+      { package = pkgs.gnomeExtensions.burn-my-windows; } # Effekte beim Öffnen/Schließen
     ];
   };
 
@@ -38,10 +43,27 @@
         "amboss-update.desktop"
       ];
     };
+    # Schwebendes, abgerundetes Dock; weicht Fenstern aus und kommt zurück,
+    # wenn die Maus an den unteren Rand fährt.
     "org/gnome/shell/extensions/dash-to-dock" = {
       dock-position = "BOTTOM";
       dock-fixed = false;
+      extend-height = false;
+      autohide = true;
+      intellihide = true;
+      custom-theme-shrink = true;
+      dash-max-icon-size = 48;
+      transparency-mode = "FIXED";
+      background-opacity = 0.35;
+      running-indicator-style = "DOTS";
+      show-trash = false;
       click-action = "minimize";
+    };
+    "org/gnome/shell/extensions/just-perfection" = {
+      startup-status = 0; # nach dem Anmelden direkt der Desktop statt der Übersicht
+      accessibility-menu = false;
+      world-clock = false;
+      window-demands-attention-focus = true;
     };
     # Netzbetrieb: nicht automatisch schlafen (Filmabend am Fernseher).
     "org/gnome/settings-daemon/plugins/power" = {

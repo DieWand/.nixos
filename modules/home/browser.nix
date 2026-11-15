@@ -13,5 +13,9 @@
     };
   };
 
-  stylix.targets.firefox.profileNames = [ "default" ];
+  stylix.targets.firefox = {
+    profileNames = [ "default" ];
+    # Firefox sieht aus wie eine GNOME-App.
+    firefoxGnomeTheme.enable = true;
+  };
 }

@@ -5,6 +5,10 @@
     enable = true;
     interactiveShellInit = ''
       set -g fish_greeting
+      # Systeminfo beim Öffnen eines Terminalfensters (nicht in IDE-Terminals).
+      if test "$TERM" = xterm-ghostty; and test "$SHLVL" = 1
+        fastfetch
+      end
     '';
     shellAbbrs = {
       ll = "eza -l --icons --git";
