@@ -1,6 +1,9 @@
 # Verknüpfungen für die App-Übersicht / das Dock – alles per Maus bedienbar.
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 let
+  # Ab wie vielen Tagen an ein Software-Update erinnert wird.
+  reminderDays = 14;
+
   # Holt den neuesten Stand aus Git und wendet ihn an.
   update = pkgs.writeShellApplication {
     name = "amboss-update";
@@ -85,8 +88,53 @@ let
       fi
     '';
   };
+
+  # Erinnert nach dem Anmelden, wenn der Software-Stand zu alt ist.
+  # Der Zeitstempel des installierten Paketstands wird beim Bauen eingesetzt,
+  # nach jedem Update ist die Erinnerung also automatisch wieder ruhig.
+  updateReminder = pkgs.writeShellApplication {
+    name = "amboss-update-reminder";
+    runtimeInputs = [
+      pkgs.libnotify
+      pkgs.ghostty
+      update
+    ];
+    text = ''
+      installed=${toString inputs.nixpkgs.lastModified}
+      age=$(( ($(date +%s) - installed) / 86400 ))
+      [ "$age" -lt ${toString reminderDays} ] && exit 0
+
+      action="$(notify-send --wait \
+        --app-name="System" --icon=system-software-update --urgency=critical \
+        --action="update=Jetzt aktualisieren" \
+        "Software-Update empfohlen" \
+        "Der Software-Stand ist $age Tage alt.")" || exit 0
+
+      if [ "$action" = "update" ]; then
+        ghostty -e amboss-update --full
+      fi
+    '';
+  };
 in
 {
+  systemd.user.services.amboss-update-reminder = {
+    Unit.Description = "Erinnerung an Software-Updates";
+    Service = {
+      Type = "simple";
+      ExecStart = "${updateReminder}/bin/amboss-update-reminder";
+    };
+  };
+
+  # Eine Minute nach dem Anmelden, danach einmal täglich.
+  systemd.user.timers.amboss-update-reminder = {
+    Unit.Description = "Erinnerung an Software-Updates";
+    Timer = {
+      OnActiveSec = "1min";
+      OnUnitInactiveSec = "1d";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
   home.packages = [
     update
     gpuMode

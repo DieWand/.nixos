@@ -23,6 +23,10 @@ Im Repo-Ordner (`~/.nixos`) ausführen. `just` ohne Argumente zeigt alle Befehle
 - *Grafikmodus* – sparsam / Standard / Nvidia-Leistung (MUX). Dasselbe gibt es
   im Schnellmenü oben rechts.
 
+**Erinnerung:** Ist der Software-Stand älter als 14 Tage, erscheint nach dem
+Anmelden eine Benachrichtigung mit dem Knopf „Jetzt aktualisieren“
+(Schwelle: `reminderDays` in `modules/home/shortcuts.nix`).
+
 **System startet nach einem Update nicht mehr?** Beim Booten im Menü einfach
 einen älteren Eintrag auswählen – die letzten 10 Stände bleiben erhalten.
 
