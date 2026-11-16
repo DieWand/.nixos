@@ -12,6 +12,7 @@
 
     ../../modules/nixos/core.nix
     ../../modules/nixos/desktop.nix
+    ../../modules/nixos/niri.nix
     ../../modules/nixos/laptop.nix
     ../../modules/nixos/nvidia.nix
     ../../modules/nixos/networking.nix

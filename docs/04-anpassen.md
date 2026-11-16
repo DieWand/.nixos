@@ -24,6 +24,7 @@ hosts/amboss/
 modules/nixos/                  Systemebene (braucht root)
   core.nix                      Boot, Nix, Sprache, Tastatur, Aufräumen
   desktop.nix                   GNOME, Ton, Drucken, Schriften, Flatpak
+  niri.nix                      zweite Sitzung: niri + DankMaterialShell
   laptop.nix                    Energie, Bluetooth, Firmware, ASUS-Dienste
   nvidia.nix                    Nvidia-Treiber
   networking.nix                NetworkManager, Firewall
@@ -38,6 +39,7 @@ modules/nixos/                  Systemebene (braucht root)
 modules/home/                   Benutzerebene (alles unter ~)
   default.nix                   Liste der Module
   gnome.nix                     Dock, Erweiterungen, GNOME-Einstellungen
+  niri.nix                      niri: Tasten, Rahmen, Shell-Thema
   browser.nix                   Firefox
   shell.nix                     fish, Prompt, Kürzel, CLI-Tools
   terminal.nix                  Ghostty
@@ -127,6 +129,24 @@ auskommentieren, `just switch`. Der Desktop selbst läuft auch ohne sie.
 
 Einzelne Programme vom Färben ausnehmen: `stylix.targets.<name>.enable = false;`.
 Die JetBrains-IDEs werden nicht erfasst – Theme dort in der IDE wählen.
+
+## niri-Sitzung
+
+| Was | Wo |
+| --- | --- |
+| Tasten, Fensterrahmen, Abstände, Regeln für einzelne Programme | `modules/home/niri.nix` (Abschnitt `niri/config.kdl`) |
+| Farben der Shell (Leiste, Dock, Menüs) | `shellTheme` in `niri.nix` – speist sich aus `themes/hangar.yaml` |
+| Startwerte der Shell (Schrift, Widgets der Leiste, Dock) | `shellSettings` in `niri.nix` |
+| Pakete, Shell an/aus | `modules/nixos/niri.nix` |
+
+Die Shell (DankMaterialShell) speichert Änderungen aus ihrer
+Einstellungs-Oberfläche in `~/.config/DankMaterialShell/settings.json`. Diese
+Datei wird nur einmal mit den Startwerten angelegt und danach nicht mehr
+überschrieben – Klick-Änderungen bleiben also erhalten, stehen aber nicht im
+Repo. Geänderte Startwerte aus dem Repo übernehmen: `amboss-shell-reset`,
+dann ab- und anmelden.
+
+Die niri-Konfiguration prüfen, bevor man sie anwendet: `niri validate`.
 
 ## Rohe Dotfiles
 

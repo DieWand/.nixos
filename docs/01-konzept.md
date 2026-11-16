@@ -28,7 +28,7 @@ Laptop wird unregelmäßig benutzt – deshalb gilt:
 | --- | --- | --- |
 | Basis | NixOS 26.05 (stable), systemd-boot | `modules/nixos/core.nix` |
 | Festplatte | LUKS-Verschlüsselung, btrfs, zram-Swap (disko) | `hosts/amboss/disko.nix` |
-| Desktop | GNOME auf Wayland, PipeWire, Flatpak | `modules/nixos/desktop.nix` |
+| Desktop | Zwei Sitzungen zur Wahl am Anmeldebildschirm: niri + DankMaterialShell (gestaltet) und GNOME (Rückfallebene) | `modules/nixos/{desktop,niri}.nix`, `modules/home/{gnome,niri}.nix` |
 | Aussehen | Stylix: Farben aus dem Wallpaper, Papirus-Icons, Plymouth, GNOME-Erweiterungen | `modules/nixos/theme.nix`, `modules/home/gnome.nix` |
 | Grafik | Nvidia-Treiber, Umschaltung über supergfxctl | `modules/nixos/nvidia.nix`, `laptop.nix` |
 | Laptop | Energieprofile, Bluetooth, Firmware, ASUS-Dienste | `modules/nixos/laptop.nix` |
@@ -53,8 +53,9 @@ Laptop wird unregelmäßig benutzt – deshalb gilt:
 
 ## Bewusste Entscheidungen
 
-- **GNOME statt Tiling-WM:** ohne Einarbeitung bedienbar, HDMI-Hotplug
-  funktioniert von selbst.
+- **GNOME bleibt als zweite Sitzung:** ohne Einarbeitung bedienbar, HDMI samt
+  Spiegeln funktioniert von selbst. niri ist die gestaltete Oberfläche, auf
+  Mausbedienung ausgelegt, mit wenigen optionalen Tasten.
 - **Stable statt unstable:** seltene Nutzung verträgt keine Überraschungen.
 - **Keine automatischen Updates:** stattdessen eine Erinnerung nach 14 Tagen.
 - **Toolchains global installiert:** IDEs finden Compiler ohne Zusatzschritte;

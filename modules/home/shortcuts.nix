@@ -48,6 +48,7 @@ let
       pkgs.zenity
       pkgs.supergfxctl
       pkgs.gnome-session
+      pkgs.niri
     ];
     text = ''
       describe() {
@@ -89,7 +90,7 @@ let
       else
         zenity --info --title="Grafikmodus" \
           --text="Modus '$target' wird nach dem Ab- und Anmelden aktiv."
-        gnome-session-quit --logout || true
+        gnome-session-quit --logout || niri msg action quit || true
       fi
     '';
   };

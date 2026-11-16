@@ -29,6 +29,16 @@ auskommentieren und `just switch`.
 
 Gewollt (Boot-Animation). `Esc` blendet die Textmeldungen ein.
 
+## niri: Leiste und Dock fehlen / Bildschirm bleibt leer
+
+Die Shell ist nicht gestartet. `Super+T` öffnet ein Terminal, dort `dms run`
+für die Fehlermeldung. Notausgang: `Super+Shift+E` meldet ab; am
+Anmeldebildschirm über das Zahnrad GNOME wählen.
+
+## niri: Shell sieht verstellt aus
+
+`amboss-shell-reset`, dann ab- und anmelden.
+
 ## Fernseher bleibt schwarz
 
 1. Grafikmodus prüfen – nicht *Integrated* (Dock: *Grafikmodus*).

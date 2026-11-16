@@ -1,6 +1,48 @@
 # 03 – Alltag
 
-## Das Dock
+## Zwei Oberflächen
+
+Am Anmeldebildschirm: Namen anklicken, dann unten rechts das **Zahnrad** –
+dort wählst du die Sitzung. Die Wahl bleibt bis zum nächsten Umstellen.
+
+| Sitzung | Was |
+| --- | --- |
+| **niri** | Die gestaltete Oberfläche im Stil der Wallpaper (siehe unten) |
+| **GNOME** | Klassisch und robust – die Rückfallebene, wenn in niri etwas hakt |
+
+Programme, Dateien und Einstellungen sind in beiden dieselben.
+
+## niri
+
+Fenster liegen nebeneinander auf einem Band, das seitlich weiterläuft; neue
+Fenster öffnen rechts daneben. Nichts überlappt.
+
+| Was | Per Maus | Per Taste (Super = Windows-Taste) |
+| --- | --- | --- |
+| Programm starten | Knopf oben links oder Dock unten | `Super+Leertaste` |
+| Alle Fenster überblicken | Maus in die Ecke oben links | `Super+Tab` |
+| Zum Nachbarfenster | Fenster anklicken, 3-Finger-Wischen, `Super`+Mausrad | `Super+←/→` |
+| Fenster schließen | Schließen-Knopf, oder Rechtsklick im Dock | `Super+Q` |
+| Fenster verschieben | `Super` halten und ziehen, oder in der Übersicht ziehen | `Super+Shift+←/→` |
+| Breite wechseln (⅓, ½, ⅔, voll) | – | `Super+R`, voll: `Super+F` |
+| Vollbild | – | `Super+Shift+F` |
+| WLAN, Ton, Bluetooth, Helligkeit | Symbol ganz rechts in der Leiste | – |
+| Bildschirme / Fernseher anordnen | Einstellungen → Displays | `Super+,` öffnet die Einstellungen |
+| Sperren / Ausschalten | Startmenü → Ein/Aus | `Super+L` / `Super+Esc` |
+| Bildschirmfoto | – | `Druck` |
+| Alle Tasten anzeigen | – | `Super+F1` |
+
+Fernseher: Einstecken genügt, er erscheint als zweiter Bildschirm rechts
+daneben. Spiegeln kann niri nicht direkt – dafür in die GNOME-Sitzung wechseln.
+
+Manche Programme (Steam, JetBrains) haben unter niri keinen Schließen-Knopf:
+`Super+Q` oder Rechtsklick auf das Symbol im Dock.
+
+Aussehen der Leiste, des Docks und des Sperrbildschirms lässt sich in den
+Einstellungen der Shell (`Super+,`) per Maus ändern. Zurück auf den
+Auslieferungszustand: `amboss-shell-reset`.
+
+## GNOME: das Dock
 
 Unten am Bildschirm: Firefox, Terminal (Ghostty), Zed, Claude, Dateien, Steam,
 Einstellungen, **Grafikmodus**, **System aktualisieren**. Alle weiteren
