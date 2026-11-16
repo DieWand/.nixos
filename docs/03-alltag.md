@@ -31,6 +31,8 @@ Fenster öffnen rechts daneben. Nichts überlappt.
 | Breite wechseln (⅓, ½, ⅔, voll) | – | `Super+R`, voll: `Super+F` |
 | Vollbild | – | `Super+Shift+F` |
 | WLAN, Ton, Bluetooth, Helligkeit | Symbol ganz rechts in der Leiste | – |
+| Zwischenablage-Verlauf | Symbol in der Leiste | `Super+V` |
+| Wallpaper wechseln | wechselt alle 30 Minuten von selbst | `Super+W` / `Super+Shift+W` |
 | Bildschirme / Fernseher anordnen | Einstellungen → Displays | `Super+,` öffnet die Einstellungen |
 | Sperren / Ausschalten | Startmenü → Ein/Aus | `Super+L` / `Super+Esc` |
 | Bildschirmfoto | – | `Druck` |
@@ -147,7 +149,35 @@ laufen meist nicht.
 ## Terminal
 
 fish schlägt beim Tippen Befehle aus dem Verlauf vor (→ übernimmt).
-`Strg+R` durchsucht den Verlauf, `z ordnername` springt in oft benutzte Ordner.
+`Strg+R` durchsucht den Verlauf.
+
+**Gewohnte Befehle, bessere Werkzeuge dahinter** – du tippst weiter wie immer:
+
+| Du tippst | Es läuft | Was besser ist |
+| --- | --- | --- |
+| `ls`, `ll`, `la`, `tree` | eza | Farben, Symbole, Git-Status, Ordner zuerst |
+| `cd` | zoxide | Wie gewohnt – zusätzlich springt `cd proj` in einen früher besuchten Ordner, dessen Name passt. `cdi` zeigt eine Auswahl |
+| `cat` | bat | Syntaxfarben |
+| `grep` | ripgrep | Schneller, durchsucht den aktuellen Ordner von selbst (`grep wort`) |
+| `top` | btop | Übersichtlicher Systemmonitor |
+| `du`, `df` | dust, duf | Lesbare Platzübersicht |
+
+Das Original erreichst du mit `command` davor, z. B. `command grep -P …`. Die
+Ersetzung gilt nur beim Tippen im Terminal; Skripte benutzen die Originale.
+`grep` verhält sich in Details anders als das klassische – bei kopierten
+Befehlen aus dem Netz im Zweifel `command grep` nehmen.
+
+Weitere Werkzeuge:
+
+| Befehl | Was |
+| --- | --- |
+| `btop` | Systemmonitor (CPU, RAM, Prozesse, GPU) |
+| `lg` | lazygit – Git mit Oberfläche: Änderungen ansehen, committen, pushen |
+| `y` | yazi – Dateimanager im Terminal; beim Beenden steht man im gewählten Ordner |
+| `fd name` | Dateien suchen (statt `find`) |
+| `tldr befehl` | Kurzhilfe mit Beispielen |
+| `lazydocker` | Docker-Container verwalten |
+
 Im Ordner `~/.nixos` zeigt `just` alle Kurzbefehle.
 
 | Befehl | Wirkung |

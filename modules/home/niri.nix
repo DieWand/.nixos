@@ -10,7 +10,32 @@
 let
   c = config.lib.stylix.colors.withHashtag;
   mono = config.stylix.fonts.monospace.name;
-  wallpaper = config.stylix.image or null;
+
+  # Alle Bilder aus wallpapers/ landen als Ordner unter ~/.local/share/wallpapers.
+  # Die Shell wechselt automatisch durch diesen Ordner.
+  isImage = n: builtins.match ".*\\.(png|jpg|jpeg|webp)" (lib.toLower n) != null;
+  wallpaperNames = lib.sort (a: b: a < b) (
+    builtins.filter isImage (builtins.attrNames (builtins.readDir ../../wallpapers))
+  );
+  wallpaperSrc = builtins.path {
+    path = ../../wallpapers;
+    name = "wallpapers";
+    filter = path: type: type == "regular" && isImage (baseNameOf path);
+  };
+  wallpaperDir = "${config.xdg.dataHome}/wallpapers";
+  # Startbild: wallpaper.* falls vorhanden, sonst das erste Bild.
+  firstWallpaper =
+    let
+      preferred = builtins.filter (n: lib.hasPrefix "wallpaper." n) wallpaperNames;
+    in
+    if preferred != [ ] then
+      builtins.head preferred
+    else if wallpaperNames != [ ] then
+      builtins.head wallpaperNames
+    else
+      null;
+  # Wechsel-Intervall in Sekunden.
+  wallpaperInterval = 1800;
 
   dms = cmd: ''spawn "dms" "ipc" "call" ${lib.concatMapStringsSep " " (a: ''"${a}"'') cmd}'';
 
@@ -84,6 +109,7 @@ let
           rightWidgets = [
             "ambossKeys" # Hinweis „SUPER+K // TASTEN“
             "systemTray"
+            "clipboard"
             "cpuUsage"
             "cpuTemp"
             "memUsage"
@@ -112,20 +138,18 @@ let
   );
 
   shellSession = pkgs.writeText "dms-session.json" (
-    builtins.toJSON (
-      {
-        isLightMode = false;
-      }
-      // lib.optionalAttrs (wallpaper != null) {
-        wallpaperPath = "${wallpaper}";
-        wallpaperPathDark = "${wallpaper}";
-        wallpaperPathLight = "${wallpaper}";
-      }
-    )
+    builtins.toJSON {
+      isLightMode = false;
+      wallpaperTransition = "fade";
+      wallpaperCyclingEnabled = true;
+      wallpaperCyclingMode = "interval";
+      wallpaperCyclingInterval = wallpaperInterval;
+    }
   );
 
   seed = pkgs.writeShellApplication {
     name = "amboss-shell-seed";
+    runtimeInputs = [ pkgs.jq ];
     text = ''
       force="''${1:-}"
       cfg="''${XDG_CONFIG_HOME:-$HOME/.config}"
@@ -147,6 +171,18 @@ let
       if [ "$force" = "--force" ] || [ ! -e "$state/session.json" ]; then
         install -m 644 ${shellSession} "$state/session.json"
       fi
+
+      # Startbild setzen, wenn noch keins gewählt ist oder das gewählte fehlt.
+      first="${if firstWallpaper != null then "${wallpaperDir}/${firstWallpaper}" else ""}"
+      if [ -n "$first" ]; then
+        current="$(jq -r '.wallpaperPath // ""' "$state/session.json" 2>/dev/null || echo "")"
+        if [ -z "$current" ] || [ ! -e "$current" ]; then
+          tmp="$(mktemp)"
+          jq --arg p "$first" '.wallpaperPath = $p | .wallpaperPathDark = $p | .wallpaperPathLight = $p' \
+            "$state/session.json" > "$tmp" && install -m 644 "$tmp" "$state/session.json"
+          rm -f "$tmp"
+        fi
+      fi
     '';
   };
 
@@ -162,6 +198,7 @@ in
   home.packages = [ reset ];
 
   xdg.configFile."DankMaterialShell/hangar-theme.json".source = shellTheme;
+  xdg.dataFile."wallpapers".source = wallpaperSrc;
 
   home.activation.ambossShellSeed = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     run ${seed}/bin/amboss-shell-seed
@@ -321,6 +358,9 @@ in
         Mod+B hotkey-overlay-title="Browser" { spawn "firefox"; }
         Mod+E hotkey-overlay-title="Dateien" { spawn "nautilus"; }
         Mod+Comma hotkey-overlay-title="Einstellungen der Oberfläche" { ${dms [ "settings" "toggle" ]}; }
+        Mod+V hotkey-overlay-title="Zwischenablage-Verlauf" { ${dms [ "clipboard" "toggle" ]}; }
+        Mod+W hotkey-overlay-title="Nächstes Wallpaper" { ${dms [ "wallpaper" "next" ]}; }
+        Mod+Shift+W hotkey-overlay-title="Vorheriges Wallpaper" { ${dms [ "wallpaper" "prev" ]}; }
         Mod+L hotkey-overlay-title="Bildschirm sperren" { ${dms [ "lock" "lock" ]}; }
         Mod+Escape hotkey-overlay-title="Ausschalten / Neustart / Abmelden" { ${dms [ "powermenu" "toggle" ]}; }
 
@@ -340,7 +380,7 @@ in
         Mod+R hotkey-overlay-title="Fensterbreite wechseln (1/3, 1/2, 2/3, voll)" { switch-preset-column-width; }
         Mod+F hotkey-overlay-title="Fenster auf volle Breite" { maximize-column; }
         Mod+Shift+F hotkey-overlay-title="Vollbild" { fullscreen-window; }
-        Mod+V hotkey-overlay-title="Fenster frei schwebend an/aus" { toggle-window-floating; }
+        Mod+Shift+V hotkey-overlay-title="Fenster frei schwebend an/aus" { toggle-window-floating; }
 
         // Maus: Super + Mausrad blättert durch Fenster und Arbeitsflächen.
         Mod+WheelScrollDown cooldown-ms=150 hotkey-overlay-title="Zum Fenster rechts (Mausrad)" { focus-column-right; }

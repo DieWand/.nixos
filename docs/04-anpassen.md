@@ -81,7 +81,7 @@ Entfernen: Zeile löschen, `just switch`.
 | Symbole im Dock | `favorite-apps` in `modules/home/gnome.nix` (Name der `.desktop`-Datei) |
 | GNOME-Erweiterung | `programs.gnome-shell.extensions` in `gnome.nix` (`pkgs.gnomeExtensions.…`) |
 | GNOME-Einstellung | `dconf.settings` in `gnome.nix`. Schlüssel finden: `dconf watch /` laufen lassen und die Einstellung in der GUI umstellen |
-| Shell-Kürzel | `shellAbbrs` in `shell.nix` |
+| Shell-Kürzel und Ersatzbefehle (`ls`→eza usw.) | `shellAbbrs`, `shellAliases` in `shell.nix` |
 | Git-Name/E-Mail | `modules/home/git.nix` |
 | Schwelle der Update-Erinnerung | `reminderDays` in `shortcuts.nix` |
 | Anzahl Stände im Bootmenü | `configurationLimit` in `core.nix` |
@@ -102,8 +102,9 @@ Wallpaper-Pack (fast schwarzer Petrol-Grund, Salbei-Grautöne, knochenweiße
 Schrift, Signalrot und Petrol als Akzente). Einzelne Farben dort ändern,
 `just switch`.
 
-**Wallpaper:** Bild als `wallpapers/wallpaper.png` (oder `.jpg`/`.jpeg`)
-ablegen, `git add wallpapers`, `just switch`.
+**Wallpaper:** Bilder nach `wallpapers/` legen, `git add wallpapers`,
+`just switch`. niri wechselt durch alle; GNOME nutzt `wallpaper.png`
+(Details: `wallpapers/README.md`).
 
 | Was | Einstellung in `theme.nix` |
 | --- | --- |

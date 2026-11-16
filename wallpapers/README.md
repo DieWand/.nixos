@@ -1,13 +1,18 @@
 # Wallpaper
 
-Bild hier als `wallpaper.png` (oder `.jpg` / `.jpeg`) ablegen, dann:
+Alle Bilder in diesem Ordner (`.png`, `.jpg`, `.jpeg`, `.webp`) hier ablegen, dann:
 
 ```sh
 git add wallpapers && just switch
 ```
 
-Stylix setzt es als Hintergrund. Die Farben kommen aus dem handabgestimmten
-Schema `themes/hangar.yaml`; sollen sie stattdessen aus dem Bild abgeleitet
-werden, in `modules/nixos/theme.nix` die Zeile `base16Scheme` löschen.
+- **niri-Sitzung:** wechselt alle 30 Minuten durch sämtliche Bilder dieses
+  Ordners. Sofort weiter/zurück: `Super+W` / `Super+Shift+W`. Intervall ändern:
+  `wallpaperInterval` in `modules/home/niri.nix` oder per Maus in den
+  Einstellungen der Shell (`Super+,`).
+- **GNOME-Sitzung und Farbableitung:** benutzen nur die Datei `wallpaper.png`
+  (oder `.jpg`/`.jpeg`). Sie ist auch das Startbild in niri.
 
-Weitere Bilder können hier liegen; aktiv ist immer `wallpaper.*`.
+Die Farben kommen aus dem handabgestimmten Schema `themes/hangar.yaml`; sollen
+sie stattdessen aus `wallpaper.*` abgeleitet werden, in
+`modules/nixos/theme.nix` die Zeile `base16Scheme` löschen.
