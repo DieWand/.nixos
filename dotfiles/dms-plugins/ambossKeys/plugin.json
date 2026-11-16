@@ -1,0 +1,11 @@
+{
+    "id": "ambossKeys",
+    "name": "Tastenkürzel",
+    "description": "Zeigt in der Leiste den Hinweis auf die Tastenübersicht; Klick öffnet sie",
+    "version": "1.0.0",
+    "author": "nschulze",
+    "icon": "keyboard",
+    "type": "widget",
+    "capabilities": ["dankbar-widget"],
+    "component": "./KeysWidget.qml"
+}

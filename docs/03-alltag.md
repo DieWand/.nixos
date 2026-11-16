@@ -14,6 +14,10 @@ Programme, Dateien und Einstellungen sind in beiden dieselben.
 
 ## niri
 
+**Nur eine Taste merken: `Super+K`** (Super = Windows-Taste). Sie öffnet eine
+durchsuchbare Liste aller Tastenkürzel mit Beschreibung. Derselbe Hinweis steht
+rechts in der Leiste (`SUPER+K // TASTEN`) und ist anklickbar.
+
 Fenster liegen nebeneinander auf einem Band, das seitlich weiterläuft; neue
 Fenster öffnen rechts daneben. Nichts überlappt.
 
@@ -30,7 +34,7 @@ Fenster öffnen rechts daneben. Nichts überlappt.
 | Bildschirme / Fernseher anordnen | Einstellungen → Displays | `Super+,` öffnet die Einstellungen |
 | Sperren / Ausschalten | Startmenü → Ein/Aus | `Super+L` / `Super+Esc` |
 | Bildschirmfoto | – | `Druck` |
-| Alle Tasten anzeigen | – | `Super+F1` |
+| Alle Tasten anzeigen | Hinweis `SUPER+K // TASTEN` in der Leiste | `Super+K` |
 
 Fernseher: Einstecken genügt, er erscheint als zweiter Bildschirm rechts
 daneben. Spiegeln kann niri nicht direkt – dafür in die GNOME-Sitzung wechseln.

@@ -82,6 +82,7 @@ let
           ];
           centerWidgets = [ "clock" ];
           rightWidgets = [
+            "ambossKeys" # Hinweis „SUPER+K // TASTEN“
             "systemTray"
             "cpuUsage"
             "cpuTemp"
@@ -104,6 +105,10 @@ let
         }
       ];
     }
+  );
+
+  shellPlugins = pkgs.writeText "dms-plugin-settings.json" (
+    builtins.toJSON { ambossKeys.enabled = true; }
   );
 
   shellSession = pkgs.writeText "dms-session.json" (
@@ -135,6 +140,9 @@ let
 
       if [ "$force" = "--force" ] || [ ! -e "$cfg/DankMaterialShell/settings.json" ]; then
         install -m 644 ${shellSettings} "$cfg/DankMaterialShell/settings.json"
+      fi
+      if [ "$force" = "--force" ] || [ ! -e "$cfg/DankMaterialShell/plugin_settings.json" ]; then
+        install -m 644 ${shellPlugins} "$cfg/DankMaterialShell/plugin_settings.json"
       fi
       if [ "$force" = "--force" ] || [ ! -e "$state/session.json" ]; then
         install -m 644 ${shellSession} "$state/session.json"
@@ -301,53 +309,56 @@ in
     }
 
     // Wenige Tasten – alles Wichtige geht auch per Maus.
-    // Mod = Super-Taste (Windows-Taste). Übersicht aller Tasten: Mod+F1
+    // Mod = Super-Taste (Windows-Taste).
+    // EINE Taste merken: Super+K zeigt alle anderen (durchsuchbar).
+    // Die Texte hinter hotkey-overlay-title erscheinen in dieser Übersicht.
     binds {
-        Mod+F1 { show-hotkey-overlay; }
+        Mod+K hotkey-overlay-title="Tastenübersicht (diese Liste)" { ${dms [ "keybinds" "toggle" "niri" ]}; }
+        Mod+F1 hotkey-overlay-title="Tastenübersicht (einfach, Notfall)" { show-hotkey-overlay; }
 
-        Mod+Space hotkey-overlay-title="Startmenü" { ${dms [ "spotlight" "toggle" ]}; }
+        Mod+Space hotkey-overlay-title="Startmenü: Programme suchen und starten" { ${dms [ "spotlight" "toggle" ]}; }
         Mod+T hotkey-overlay-title="Terminal" { spawn "ghostty"; }
         Mod+B hotkey-overlay-title="Browser" { spawn "firefox"; }
         Mod+E hotkey-overlay-title="Dateien" { spawn "nautilus"; }
-        Mod+Comma hotkey-overlay-title="Einstellungen" { ${dms [ "settings" "toggle" ]}; }
-        Mod+L hotkey-overlay-title="Sperren" { ${dms [ "lock" "lock" ]}; }
-        Mod+Escape hotkey-overlay-title="Ausschalten / Abmelden" { ${dms [ "powermenu" "toggle" ]}; }
+        Mod+Comma hotkey-overlay-title="Einstellungen der Oberfläche" { ${dms [ "settings" "toggle" ]}; }
+        Mod+L hotkey-overlay-title="Bildschirm sperren" { ${dms [ "lock" "lock" ]}; }
+        Mod+Escape hotkey-overlay-title="Ausschalten / Neustart / Abmelden" { ${dms [ "powermenu" "toggle" ]}; }
 
-        Mod+Q { close-window; }
-        Mod+Tab { toggle-overview; }
+        Mod+Q hotkey-overlay-title="Fenster schließen" { close-window; }
+        Mod+Tab hotkey-overlay-title="Übersicht aller Fenster" { toggle-overview; }
         // Alt+Tab (Fensterwechsel) bringt niri von Haus aus mit.
 
-        Mod+Left { focus-column-left; }
-        Mod+Right { focus-column-right; }
-        Mod+Up { focus-window-or-workspace-up; }
-        Mod+Down { focus-window-or-workspace-down; }
-        Mod+Shift+Left { move-column-left; }
-        Mod+Shift+Right { move-column-right; }
-        Mod+Shift+Up { move-window-up-or-to-workspace-up; }
-        Mod+Shift+Down { move-window-down-or-to-workspace-down; }
+        Mod+Left hotkey-overlay-title="Zum Fenster links" { focus-column-left; }
+        Mod+Right hotkey-overlay-title="Zum Fenster rechts" { focus-column-right; }
+        Mod+Up hotkey-overlay-title="Fenster / Arbeitsfläche darüber" { focus-window-or-workspace-up; }
+        Mod+Down hotkey-overlay-title="Fenster / Arbeitsfläche darunter" { focus-window-or-workspace-down; }
+        Mod+Shift+Left hotkey-overlay-title="Fenster nach links schieben" { move-column-left; }
+        Mod+Shift+Right hotkey-overlay-title="Fenster nach rechts schieben" { move-column-right; }
+        Mod+Shift+Up hotkey-overlay-title="Fenster nach oben schieben" { move-window-up-or-to-workspace-up; }
+        Mod+Shift+Down hotkey-overlay-title="Fenster nach unten schieben" { move-window-down-or-to-workspace-down; }
 
-        Mod+R { switch-preset-column-width; }
-        Mod+F { maximize-column; }
-        Mod+Shift+F { fullscreen-window; }
-        Mod+V { toggle-window-floating; }
+        Mod+R hotkey-overlay-title="Fensterbreite wechseln (1/3, 1/2, 2/3, voll)" { switch-preset-column-width; }
+        Mod+F hotkey-overlay-title="Fenster auf volle Breite" { maximize-column; }
+        Mod+Shift+F hotkey-overlay-title="Vollbild" { fullscreen-window; }
+        Mod+V hotkey-overlay-title="Fenster frei schwebend an/aus" { toggle-window-floating; }
 
         // Maus: Super + Mausrad blättert durch Fenster und Arbeitsflächen.
-        Mod+WheelScrollDown cooldown-ms=150 { focus-column-right; }
-        Mod+WheelScrollUp cooldown-ms=150 { focus-column-left; }
-        Mod+Shift+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
-        Mod+Shift+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }
+        Mod+WheelScrollDown cooldown-ms=150 hotkey-overlay-title="Zum Fenster rechts (Mausrad)" { focus-column-right; }
+        Mod+WheelScrollUp cooldown-ms=150 hotkey-overlay-title="Zum Fenster links (Mausrad)" { focus-column-left; }
+        Mod+Shift+WheelScrollDown cooldown-ms=150 hotkey-overlay-title="Arbeitsfläche darunter (Mausrad)" { focus-workspace-down; }
+        Mod+Shift+WheelScrollUp cooldown-ms=150 hotkey-overlay-title="Arbeitsfläche darüber (Mausrad)" { focus-workspace-up; }
 
-        Print { screenshot; }
-        Mod+Print { screenshot-screen; }
+        Print hotkey-overlay-title="Bildschirmfoto (Bereich wählen)" { screenshot; }
+        Mod+Print hotkey-overlay-title="Bildschirmfoto (ganzer Bildschirm)" { screenshot-screen; }
 
-        XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "5%+"; }
-        XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
-        XF86AudioMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-        XF86AudioMicMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
-        XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "set" "5%+"; }
-        XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "5%-"; }
+        XF86AudioRaiseVolume allow-when-locked=true hotkey-overlay-title="Lauter" { spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+        XF86AudioLowerVolume allow-when-locked=true hotkey-overlay-title="Leiser" { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+        XF86AudioMute allow-when-locked=true hotkey-overlay-title="Ton aus/an" { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+        XF86AudioMicMute allow-when-locked=true hotkey-overlay-title="Mikrofon aus/an" { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+        XF86MonBrightnessUp allow-when-locked=true hotkey-overlay-title="Heller" { spawn "brightnessctl" "set" "5%+"; }
+        XF86MonBrightnessDown allow-when-locked=true hotkey-overlay-title="Dunkler" { spawn "brightnessctl" "set" "5%-"; }
 
-        Mod+Shift+E { quit; }
+        Mod+Shift+E hotkey-overlay-title="Abmelden (Notausgang)" { quit; }
     }
   '';
 }

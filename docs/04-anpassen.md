@@ -135,6 +135,8 @@ Die JetBrains-IDEs werden nicht erfasst – Theme dort in der IDE wählen.
 | Was | Wo |
 | --- | --- |
 | Tasten, Fensterrahmen, Abstände, Regeln für einzelne Programme | `modules/home/niri.nix` (Abschnitt `niri/config.kdl`) |
+| Tastenkürzel hinzufügen | `binds` in `niri.nix`. Der Text hinter `hotkey-overlay-title` erscheint in der Übersicht (`Super+K`) – immer mit angeben |
+| Hinweis in der Leiste | `dotfiles/dms-plugins/ambossKeys/` |
 | Farben der Shell (Leiste, Dock, Menüs) | `shellTheme` in `niri.nix` – speist sich aus `themes/hangar.yaml` |
 | Startwerte der Shell (Schrift, Widgets der Leiste, Dock) | `shellSettings` in `niri.nix` |
 | Pakete, Shell an/aus | `modules/nixos/niri.nix` |

@@ -28,7 +28,7 @@ Im Repo-Ordner (`~/.nixos`) ausführen. `just` ohne Argumente zeigt alle Befehle
 
 **Oberfläche wählen:** Am Anmeldebildschirm Zahnrad unten rechts – *niri*
 (gestaltet) oder *GNOME* (klassisch). In niri: Maus in die Ecke oben links =
-Übersicht, `Super+F1` zeigt alle Tasten.
+Übersicht, **`Super+K` zeigt alle Tasten** (steht auch in der Leiste).
 
 **Erinnerung:** Ist der Software-Stand älter als 14 Tage, erscheint nach dem
 Anmelden eine Benachrichtigung mit dem Knopf „Jetzt aktualisieren“

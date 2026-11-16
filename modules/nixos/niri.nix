@@ -14,6 +14,9 @@
     # Farben kommen fest aus dem eigenen Schema, nicht aus dem Wallpaper.
     enableDynamicTheming = false;
     enableCalendarEvents = false;
+
+    # Eigenes Leisten-Element: Hinweis auf die Tastenübersicht (Super+K).
+    plugins.ambossKeys.src = ../../dotfiles/dms-plugins/ambossKeys;
   };
 
   environment.systemPackages = with pkgs; [

@@ -35,6 +35,11 @@ Die Shell ist nicht gestartet. `Super+T` öffnet ein Terminal, dort `dms run`
 für die Fehlermeldung. Notausgang: `Super+Shift+E` meldet ab; am
 Anmeldebildschirm über das Zahnrad GNOME wählen.
 
+## niri: `Super+K` zeigt nichts
+
+`Super+F1` zeigt niris eingebaute, einfachere Übersicht – sie funktioniert
+auch, wenn die Shell hängt.
+
 ## niri: Shell sieht verstellt aus
 
 `amboss-shell-reset`, dann ab- und anmelden.
