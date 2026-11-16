@@ -116,7 +116,7 @@ ablegen, `git add wallpapers`, `just switch`.
 
 | Baustein | Wo |
 | --- | --- |
-| Milchglas (Blur my Shell), schlanke Leiste (Just Perfection), runde Fensterecken, Fenster-Effekte (Burn My Windows) | `programs.gnome-shell.extensions` in `modules/home/gnome.nix`. Feineinstellung per Maus in der App *Erweiterungen* |
+| Milchglas (Blur my Shell), schlanke Leiste (Just Perfection), runde Fensterecken | `programs.gnome-shell.extensions` in `modules/home/gnome.nix`. Feineinstellung per Maus in der App *Erweiterungen* |
 | Schwebendes Dock | `dash-to-dock` in `gnome.nix` |
 | Firefox im GNOME-Stil | `firefoxGnomeTheme` in `modules/home/browser.nix` |
 | Systeminfo beim Öffnen des Terminals | `interactiveShellInit` in `modules/home/shell.nix` |

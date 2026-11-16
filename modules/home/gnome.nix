@@ -11,10 +11,9 @@
       # Aussehen
       { package = pkgs.gnomeExtensions.blur-my-shell; } # Milchglas für Leiste, Dock, Übersicht
       { package = pkgs.gnomeExtensions.just-perfection; } # schlankere Leiste
-      # Die beiden folgenden sind am ehesten betroffen, wenn nach einem
-      # GNOME-Versionssprung etwas hakt – dann einfach auskommentieren.
+      # Am ehesten betroffen, wenn nach einem GNOME-Versionssprung etwas hakt –
+      # dann einfach auskommentieren.
       { package = pkgs.gnomeExtensions.rounded-window-corners-reborn; }
-      { package = pkgs.gnomeExtensions.burn-my-windows; } # Effekte beim Öffnen/Schließen
     ];
   };
 
