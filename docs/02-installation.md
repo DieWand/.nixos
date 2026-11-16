@@ -41,6 +41,25 @@ Ablauf des Skripts:
 Andere Festplatte als in `hosts/amboss/disko.nix` eingetragen:
 `sudo ./.nixos/install.sh /dev/sda` (Namen mit `lsblk` nachsehen).
 
+## Wenn die Installation abbricht
+
+Häufigste Ursache: ein großer Download reißt ab (`cannot download … from any
+mirror`, `Connection reset by peer`) – typischerweise die JetBrains-IDEs mit je
+rund 1 GB. Das Skript versucht es von selbst bis zu fünfmal. Reicht das nicht:
+
+```sh
+cd ~/.nixos
+sudo ./install.sh --weiter                    # fortsetzen, Platte bleibt wie sie ist
+sudo ./install.sh --weiter --ohne-jetbrains   # die IDEs vorerst auslassen
+```
+
+`--weiter` löscht nichts; bereits Geladenes bleibt erhalten. Nach einem
+Neustart des Sticks fragt es nach dem LUKS-Passwort und hängt die Platte wieder
+ein. Ein LAN-Kabel statt WLAN hilft oft.
+
+Ausgelassene IDEs nachholen: in `hosts/amboss/default.nix`
+`amboss.jetbrains.enable = true;` setzen, dann `just switch`.
+
 ## Nach dem ersten Start
 
 1. LUKS-Passwort eingeben, als `nschulze` mit Passwort `changeme` anmelden.

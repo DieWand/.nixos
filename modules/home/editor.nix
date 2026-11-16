@@ -1,5 +1,10 @@
 # Editoren: Zed + JetBrains-IDEs.
-{ pkgs, ... }:
+{
+  pkgs,
+  lib,
+  osConfig,
+  ...
+}:
 {
   programs.zed-editor = {
     enable = true;
@@ -10,10 +15,13 @@
     ];
   };
 
-  home.packages = with pkgs.jetbrains; [
-    idea # Java
-    clion # C / C++
-    webstorm # JavaScript / TypeScript
-    rust-rover # Rust
-  ];
+  home.packages = lib.optionals osConfig.amboss.jetbrains.enable (
+    with pkgs.jetbrains;
+    [
+      idea # Java
+      clion # C / C++
+      webstorm # JavaScript / TypeScript
+      rust-rover # Rust
+    ]
+  );
 }

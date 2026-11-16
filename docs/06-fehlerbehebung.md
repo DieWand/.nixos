@@ -1,5 +1,13 @@
 # 06 – Fehlerbehebung
 
+## Installation oder Update bricht mit „cannot download“ ab
+
+Ein großer Download ist abgerissen – meist eine JetBrains-IDE. Einfach erneut
+starten; bereits Geladenes bleibt erhalten. Bei der Installation: siehe
+[02 – Installation](02-installation.md). Hält es an: in
+`hosts/amboss/default.nix` `amboss.jetbrains.enable = false;` setzen und die
+IDEs später nachholen.
+
 ## System startet nach einem Update nicht richtig
 
 Beim Start erscheint das Bootmenü (falls nicht: Leertaste gedrückt halten).

@@ -33,6 +33,10 @@
 
   networking.hostName = "amboss";
 
+  # JetBrains-IDEs (je ~1 GB Download direkt von JetBrains). Auf false setzen,
+  # falls die Downloads bei der Installation scheitern; später nachholen.
+  amboss.jetbrains.enable = true;
+
   # Backup-Ziel – noch offen. Eintragen, dann `just switch` (siehe backup.nix).
   # amboss.backup.repository = "sftp:user@server:/backups/amboss";
 
