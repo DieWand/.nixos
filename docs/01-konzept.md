@@ -65,5 +65,6 @@ Laptop wird unregelmäßig benutzt – deshalb gilt:
 ## Stand der Prüfung
 
 Die Konfiguration wurde vollständig ausgewertet (alle Optionen gültig, alle
-Pakete vorhanden), die eigenen Skripte wurden gebaut. Sie wurde **noch nicht
-auf der echten Hardware installiert**. Offene Punkte: [07 – Hardware](07-hardware.md).
+Pakete vorhanden), die eigenen Skripte wurden gebaut. Die Hardware-Daten des Geräts
+sind eingetragen ([07 – Hardware](07-hardware.md)). Sie wurde **noch nicht auf
+der echten Hardware installiert**.

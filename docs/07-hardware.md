@@ -1,9 +1,23 @@
 # 07 – Hardware
 
-## Annahmen bisher
+## Dieses Gerät
 
-ASUS TUF Gaming A17 (unbestätigt): AMD-CPU mit integrierter Grafik, Nvidia-Karte
-mit MUX-Switch, NVMe-SSD unter `/dev/nvme0n1`, UEFI.
+| | |
+| --- | --- |
+| Modell | ASUS TUF Gaming A17 **FA707RR** (BIOS 314) |
+| CPU | AMD Ryzen 7 6800H (8 Kerne / 16 Threads) |
+| Grafik | Radeon 680M (intern, `PCI:5:0:0`) + Nvidia RTX 3070 Mobile (`PCI:1:0:0`), MUX vorhanden |
+| RAM | 16 GB |
+| Platte | Samsung 1 TB NVMe (`/dev/nvme0n1`), einzige Platte |
+| Bildschirm | 1920×1080, intern an der Radeon; **HDMI hängt an der Nvidia-Karte** |
+| WLAN / Bluetooth | MediaTek MT7921 (Treiber im Kernel) |
+| LAN | Realtek RTL8111/8168 |
+| Akku | Ladegrenze einstellbar |
+| Fingerabdruck | nicht vorhanden |
+| Firmware | UEFI, Secure Boot aus |
+
+Erfasst mit `scripts/hardware-info.sh`. Alle Werte sind in die Konfiguration
+eingetragen.
 
 ## Welche Daten gebraucht werden
 
@@ -40,17 +54,10 @@ Unter Windows genügen fürs Erste: *Einstellungen → System → Info* (Modell,
 RAM), Geräte-Manager → *Grafikkarten* und *Laufwerke*, und das Typenschild auf
 der Unterseite (Modell, z. B. „FA707NV“).
 
-## Offene Punkte im Code
+## Offene Punkte
 
-Mit `TODO(hardware)` markiert (`grep -rn "TODO" .`):
-
-| Datei | Punkt |
+| Wo | Punkt |
 | --- | --- |
-| `hosts/amboss/default.nix` | `nixos-hardware`-Modul für das genaue Modell |
-| `hosts/amboss/disko.nix` | Festplattenname |
-| `hosts/amboss/hardware-configuration.nix` | Platzhalter; wird bei der Installation erzeugt |
-| `modules/nixos/nvidia.nix` | `open` je nach Kartengeneration; Bus-IDs für PRIME |
 | `modules/home/git.nix` | Name und E-Mail für Commits |
-
-Unabhängig von der Hardware offen: Backup-Ziel ([05](05-daten-und-secrets.md)),
-Design ([04](04-anpassen.md)).
+| `hosts/amboss/default.nix` | Backup-Ziel ([05](05-daten-und-secrets.md)) |
+| `wallpapers/` | Wallpaper ablegen ([04](04-anpassen.md)) |

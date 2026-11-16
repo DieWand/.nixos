@@ -3,7 +3,7 @@
 {
   disko.devices.disk.main = {
     type = "disk";
-    # TODO(hardware): mit `lsblk` prüfen und anpassen.
+    # Samsung 1 TB NVMe – die einzige Platte im Gerät.
     device = "/dev/nvme0n1";
     content = {
       type = "gpt";

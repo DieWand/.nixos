@@ -1,4 +1,5 @@
-# Host "amboss": der persönliche Laptop (vermutlich ASUS TUF Gaming A17).
+# Host "amboss": ASUS TUF Gaming A17 FA707RR
+# (Ryzen 7 6800H, Radeon 680M + RTX 3070 mit MUX, 16 GB RAM, 1 TB NVMe).
 { inputs, ... }:
 {
   imports = [
@@ -22,9 +23,12 @@
     ../../modules/nixos/secrets.nix
     ../../modules/nixos/backup.nix
 
-    # TODO(hardware): sobald das genaue Modell feststeht, das passende
-    # nixos-hardware-Modul ergänzen, z. B.:
-    # inputs.nixos-hardware.nixosModules.asus-fa706ic
+    # Für das FA707RR gibt es kein eigenes nixos-hardware-Profil; diese
+    # allgemeinen Bausteine entsprechen dem des Schwestermodells FA507RM.
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-pc-laptop
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
 
   networking.hostName = "amboss";

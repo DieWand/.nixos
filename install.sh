@@ -41,7 +41,7 @@ echo "==> Partitionieren und verschlüsseln (fragt nach dem neuen LUKS-Passwort)
 "${NIX[@]}" run github:nix-community/disko/latest -- \
   --mode destroy,format,mount --yes-wipe-all-disks "$DISKO_FILE"
 
-if grep -q PLATZHALTER "$HW_FILE"; then
+if [ ! -s "$HW_FILE" ] || grep -q PLATZHALTER "$HW_FILE"; then
   echo "==> Hardware-Konfiguration erzeugen"
   nixos-generate-config --no-filesystems --root /mnt --show-hardware-config > "$HW_FILE"
 fi

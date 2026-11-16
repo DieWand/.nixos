@@ -109,5 +109,4 @@ Einmalig: `rustup default stable`, in Steam/JetBrains/Firefox anmelden.
 
 ## Offene Punkte
 
-Im Code mit `TODO(hardware)` markiert: genaues Modell, Festplattenname,
-Nvidia-Bus-IDs. Außerdem: Backup-Ziel festlegen.
+Name/E-Mail für Git (`modules/home/git.nix`), Backup-Ziel, Wallpaper.

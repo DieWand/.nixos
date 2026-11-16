@@ -79,8 +79,8 @@ Fehlt *AsusMuxDgpu* in der Liste, hat das Gerät keinen (unterstützten) MUX.
 ## Akku hält kurz
 
 Grafikmodus *Integrated* wählen, Energiemodus im Schnellmenü auf *Energie
-sparen*. Solange die Nvidia-Bus-IDs nicht eingetragen sind
-([07](07-hardware.md)), schläft die Nvidia-Karte im Hybrid-Modus möglicherweise nicht.
+sparen*. Ob die Nvidia-Karte schläft:
+`cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status` (`suspended` = schläft).
 
 ## „Software“-App zeigt keine Programme
 
