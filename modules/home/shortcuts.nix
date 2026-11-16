@@ -172,6 +172,16 @@ in
       };
     };
 
+    # Claude Desktop gibt es für Linux nicht als Paket – stattdessen die
+    # Web-Version als eigenes Symbol.
+    claude = {
+      name = "Claude";
+      comment = "claude.ai im Browser öffnen";
+      icon = "internet-chat";
+      exec = "firefox --new-window https://claude.ai";
+      categories = [ "Network" ];
+    };
+
     amboss-gpu-mode = {
       name = "Grafikmodus";
       comment = "Zwischen sparsam, Standard und Nvidia-Leistung (MUX) umschalten";

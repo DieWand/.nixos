@@ -34,6 +34,9 @@
     docker-compose
     lazydocker
 
+    # KI-Assistent im Terminal: im Projektordner `claude` starten
+    claude-code
+
     # Nix
     nixd
     nixfmt

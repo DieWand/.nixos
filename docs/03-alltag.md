@@ -2,7 +2,7 @@
 
 ## Das Dock
 
-Unten am Bildschirm: Firefox, Terminal (Ghostty), Zed, Dateien, Steam,
+Unten am Bildschirm: Firefox, Terminal (Ghostty), Zed, Claude, Dateien, Steam,
 Einstellungen, **Grafikmodus**, **System aktualisieren**. Alle weiteren
 Programme: Raster-Symbol im Dock oder Super-Taste (Windows-Taste) und lostippen.
 
@@ -89,6 +89,9 @@ laufen meist nicht.
 - **Editoren:** Zed, IntelliJ IDEA, CLion, WebStorm, RustRover.
 - **Vorhanden:** gcc, make, cmake, ninja, gdb, clangd · JDK, Maven, Gradle ·
   Node.js, pnpm, TypeScript · rustup · Docker, docker-compose, lazydocker.
+- **Claude:** Dock-Symbol *Claude* öffnet claude.ai im Browser. Im Terminal
+  startet `claude` im Projektordner Claude Code (beim ersten Mal anmelden).
+  Eine Desktop-App gibt es für Linux nicht als Paket.
 - **Rust einmalig:** `rustup default stable`.
 - **Docker:** läuft ohne `sudo`. Aufräumen passiert wöchentlich automatisch.
 - **Projektspezifische Versionen:** im Projekt eine `flake.nix` mit `devShell`
