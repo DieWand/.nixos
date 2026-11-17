@@ -56,17 +56,27 @@ Schnellmenü oben rechts → Pfeil am Lautstärkeregler → HDMI-Ausgang wählen
 
 ## „System aktualisieren“ bricht bei Git ab
 
-Es gibt lokale Änderungen, die mit dem Stand im Repo kollidieren.
+**„Repo nicht erreichbar“:** Internet prüfen, erneut versuchen.
+
+**„Lokale Änderungen widersprechen dem Stand im Repo“:** Auf dem Laptop und im
+Repo wurde dieselbe Stelle unterschiedlich geändert. Es wurde nichts
+angewendet. Nachsehen:
 
 ```sh
 cd ~/.nixos
-git status                 # was ist geändert?
-git stash                  # lokale Änderungen beiseitelegen
-just sync
-git stash pop              # zurückholen (ggf. Konflikte lösen)
+git log --oneline -3        # der oberste Eintrag sind deine lokalen Änderungen
+git show HEAD               # was genau
 ```
 
-Häufigster Fall: `flake.lock` nach einem Software-Update nicht committet.
+Lokale Änderung verwerfen und den Repo-Stand nehmen:
+`git reset --hard origin/main`, danach erneut aktualisieren.
+
+**„Hochladen fehlgeschlagen“:** Einmalig `gh auth login` ausführen. Das System
+ist trotzdem aktuell; hochgeladen wird beim nächsten Aktualisieren.
+
+**„Author identity unknown“:** Name/E-Mail fehlen – stehen in
+`modules/home/git.nix`. Vor dem ersten `switch` behelfsweise:
+`git config user.name nschulze && git config user.email nschulze@amboss`.
 
 ## Build meldet „path … does not exist“ / Datei wird nicht gefunden
 

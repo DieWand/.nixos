@@ -113,4 +113,4 @@ Einmalig: `rustup default stable`, in Steam/JetBrains/Firefox anmelden.
 
 ## Offene Punkte
 
-Name/E-Mail für Git (`modules/home/git.nix`), Backup-Ziel, Wallpaper.
+E-Mail für Git (`modules/home/git.nix`, aktuell Platzhalter), Backup-Ziel, Wallpaper.

@@ -6,10 +6,9 @@ default:
 switch:
     sudo nixos-rebuild switch --flake .#amboss
 
-# Neuesten Stand aus Git holen und anwenden
+# Neuesten Stand aus Git holen und anwenden (lokale Änderungen werden vorher committet)
 sync:
-    git pull --ff-only
-    sudo nixos-rebuild switch --flake .#amboss
+    amboss-update
 
 # Änderungen testen, ohne sie ins Bootmenü zu übernehmen (Neustart = alter Stand)
 test:
@@ -17,8 +16,7 @@ test:
 
 # Alles aktualisieren (Pakete, Treiber, Kernel) und anwenden
 update:
-    nix flake update
-    sudo nixos-rebuild switch --flake .#amboss
+    amboss-update --full
 
 # Zum vorherigen Stand zurück
 rollback:

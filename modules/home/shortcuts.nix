@@ -10,34 +10,82 @@ let
   reminderDays = 14;
 
   # Holt den neuesten Stand aus Git und wendet ihn an.
+  #   amboss-update           Stand aus Git holen und anwenden
+  #   amboss-update --full    zusätzlich alle Pakete aktualisieren
+  #   --pause                 am Ende auf Enter warten (für das Dock-Symbol)
+  # Lokale Änderungen auf dem Laptop werden vorher automatisch committet,
+  # damit das Holen nie daran scheitert; am Ende wird alles hochgeladen.
   update = pkgs.writeShellApplication {
     name = "amboss-update";
-    runtimeInputs = [ pkgs.git ];
+    runtimeInputs = [
+      pkgs.git
+      pkgs.gh
+    ];
     text = ''
-      finish() {
-        echo
-        read -r -p "Fertig – Enter schließt das Fenster. " _ || true
-      }
-      trap finish EXIT
+      full=0
+      pause=0
+      for arg in "$@"; do
+        case "$arg" in
+          --full) full=1 ;;
+          --pause) pause=1 ;;
+        esac
+      done
+
+      if [ "$pause" -eq 1 ]; then
+        finish() {
+          echo
+          read -r -p "Fertig – Enter schließt das Fenster. " _ || true
+        }
+        trap finish EXIT
+      fi
 
       cd "$HOME/.nixos"
 
-      echo "==> Neuesten Stand aus Git holen"
-      git pull --ff-only
+      if [ -n "$(git status --porcelain)" ]; then
+        echo "==> Lokale Änderungen sichern"
+        git status --short
+        git add -A
+        git commit -q -m "amboss: lokale Änderungen vom $(date +%F)"
+      fi
 
-      if [ "''${1:-}" = "--full" ]; then
+      echo "==> Neuesten Stand aus Git holen"
+      if ! git pull --rebase; then
+        if [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ]; then
+          git rebase --abort || true
+          echo
+          echo "✘ Lokale Änderungen widersprechen dem Stand im Repo."
+          echo "  Nichts wurde angewendet. Ausgabe von 'git status' an Claude geben"
+          echo "  oder in docs/06-fehlerbehebung.md nachsehen."
+        else
+          echo
+          echo "✘ Repo nicht erreichbar (Internet?). Nichts wurde angewendet."
+        fi
+        exit 1
+      fi
+
+      if [ "$full" -eq 1 ]; then
         echo "==> Paketquellen aktualisieren"
         nix flake update
+        if [ -n "$(git status --porcelain flake.lock)" ]; then
+          git add flake.lock
+          git commit -q -m "amboss: Pakete aktualisiert ($(date +%F))"
+        fi
       fi
 
       echo "==> System anwenden (fragt nach dem Passwort)"
       sudo nixos-rebuild switch --flake .#amboss
 
+      if [ "$(git rev-list --count '@{u}..HEAD' 2>/dev/null || echo 0)" -gt 0 ]; then
+        echo "==> Lokale Änderungen hochladen"
+        if ! git push; then
+          echo
+          echo "Hinweis: Hochladen fehlgeschlagen. Einmalig 'gh auth login' ausführen,"
+          echo "danach erneut aktualisieren. Das System selbst ist trotzdem aktuell."
+        fi
+      fi
+
       echo
       echo "✔ System ist aktuell."
-      if [ "''${1:-}" = "--full" ] && ! git diff --quiet flake.lock; then
-        echo "Hinweis: flake.lock wurde geändert – bei Gelegenheit committen und pushen."
-      fi
     '';
   };
 
@@ -117,7 +165,7 @@ let
         "Der Software-Stand ist $age Tage alt.")" || exit 0
 
       if [ "$action" = "update" ]; then
-        ghostty -e amboss-update --full
+        ghostty -e amboss-update --pause --full
       fi
     '';
   };
@@ -165,11 +213,11 @@ in
       name = "System aktualisieren";
       comment = "Neuesten Stand aus Git holen und anwenden";
       icon = "system-software-update";
-      exec = "ghostty -e amboss-update";
+      exec = "ghostty -e amboss-update --pause";
       categories = [ "System" ];
       actions.full = {
         name = "Zusätzlich alle Pakete aktualisieren";
-        exec = "ghostty -e amboss-update --full";
+        exec = "ghostty -e amboss-update --pause --full";
       };
     };
 

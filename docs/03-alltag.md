@@ -79,8 +79,9 @@ Es gibt drei Arten:
 
 - Ist der Software-Stand älter als 14 Tage, erscheint nach dem Anmelden eine
   Benachrichtigung mit dem Knopf *Jetzt aktualisieren*.
-- Nach einem Software-Update ist `flake.lock` geändert. Committen und pushen,
-  damit der Stand reproduzierbar bleibt.
+- Lokale Änderungen am Repo auf dem Laptop werden beim Aktualisieren
+  automatisch committet und zusammen mit einer geänderten `flake.lock`
+  hochgeladen. Voraussetzung: einmalig `gh auth login`.
 - Kernel- und Treiber-Updates wirken erst nach einem Neustart.
 - **Zurück:** `just rollback`, oder beim Start im Bootmenü einen älteren
   Eintrag wählen.

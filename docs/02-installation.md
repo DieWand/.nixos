@@ -64,16 +64,15 @@ Ausgelassene IDEs nachholen: in `hosts/amboss/default.nix`
 
 1. LUKS-Passwort eingeben, als `nschulze` mit Passwort `changeme` anmelden.
 2. **Sofort** im Terminal `passwd` ausführen.
-3. Nur bei der Erstinstallation:
+3. Einmalig bei GitHub anmelden und den Stand hochladen:
    ```sh
+   gh auth login            # GitHub.com → HTTPS → im Browser anmelden
    cd ~/.nixos
-   just secrets-init        # zeigt den age-Schlüssel → in den Passwortmanager
-   just switch
-   git add -A && git commit -m "Hardware, Lock, Secrets" && git push
+   just secrets-init        # nur bei der Erstinstallation; Schlüssel → Passwortmanager
+   just sync
    ```
-   Damit landen `hardware-configuration.nix`, `flake.lock` und die
-   verschlüsselten Secrets im Repo. Für `git push` vorher Name/E-Mail in
-   `modules/home/git.nix` eintragen und bei GitHub anmelden.
+   Das Installationsskript hat den Stand des Geräts (u. a. `flake.lock` mit den
+   exakten Paketversionen) bereits lokal committet; `just sync` lädt ihn hoch.
 4. Einmalig von Hand: `rustup default stable`; in Firefox, Steam und den
    JetBrains-IDEs anmelden; Flatpaks neu installieren; persönliche Daten aus dem
    Backup zurückspielen ([05](05-daten-und-secrets.md)).

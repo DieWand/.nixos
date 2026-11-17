@@ -58,6 +58,6 @@ der Unterseite (Modell, z. B. „FA707NV“).
 
 | Wo | Punkt |
 | --- | --- |
-| `modules/home/git.nix` | Name und E-Mail für Commits |
+| `modules/home/git.nix` | Echte E-Mail für Commits (aktuell Platzhalter) |
 | `hosts/amboss/default.nix` | Backup-Ziel ([05](05-daten-und-secrets.md)) |
 | `wallpapers/` | Wallpaper ablegen ([04](04-anpassen.md)) |

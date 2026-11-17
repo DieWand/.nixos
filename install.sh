@@ -119,6 +119,11 @@ MSG
   sleep 10
 done
 
+echo "==> Stand dieser Installation festhalten (Commit)"
+git -C "$REPO" -c safe.directory='*' add -A
+git -C "$REPO" -c safe.directory='*' -c user.name=nschulze -c user.email=nschulze@amboss \
+  commit -q -m "amboss: Stand nach Installation" || true
+
 echo "==> Repo ins neue System kopieren"
 TARGET="/mnt/home/$USER_NAME/.nixos"
 mkdir -p "$(dirname "$TARGET")"
@@ -131,8 +136,8 @@ cat <<MSG
 ✔ Fertig. Jetzt 'reboot' eingeben und den Stick abziehen.
 
   Anmelden als:  $USER_NAME   Passwort: changeme   → danach sofort 'passwd'
-  Anschließend in ~/.nixos die geänderten Dateien committen und pushen
-  (hardware-configuration.nix, flake.lock).
+  Einmalig 'gh auth login' (GitHub-Anmeldung), danach im Dock
+  „System aktualisieren“ – das lädt auch den Stand dieser Installation hoch.
 MSG
 
 if [ "$SKIP_IDES" -eq 1 ]; then
