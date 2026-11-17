@@ -35,7 +35,7 @@ Laptop wird unregelmäßig benutzt – deshalb gilt:
 | Spiele | Steam, Proton-GE, GameMode, MangoHud | `modules/nixos/gaming.nix` |
 | Entwicklung | Docker; Zed, JetBrains, Toolchains, direnv | `modules/nixos/dev.nix`, `modules/home/{editor,dev}.nix` |
 | Shell | fish, starship, Ghostty | `modules/home/{shell,terminal}.nix` |
-| Browser | Firefox mit DRM (Netflix) | `modules/home/browser.nix` |
+| Browser | Firefox mit DRM (Netflix), Dashlane und uBlock Origin fest installiert | `modules/home/browser.nix` |
 | Verknüpfungen | Update, Grafikmodus, Update-Erinnerung | `modules/home/shortcuts.nix` |
 | Snapshots | snapper auf `/home` | `modules/nixos/snapshots.nix` |
 | Backup | restic (noch ohne Ziel) | `modules/nixos/backup.nix` |
@@ -46,7 +46,7 @@ Laptop wird unregelmäßig benutzt – deshalb gilt:
 | Im Repo (nach Wipe automatisch wieder da) | Nicht im Repo |
 | --- | --- |
 | Betriebssystem, Treiber, alle Programme | Persönliche Dateien (Dokumente, Projekte, Downloads) → Backup |
-| Einstellungen von GNOME, Shell, Terminal, Git, Editor | Logins in Firefox, Steam, JetBrains |
+| Einstellungen von GNOME, Shell, Terminal, Git, Editor, Firefox-Add-ons | Logins in Dashlane, Steam, JetBrains (nach Rücksicherung aus dem Backup wieder da) |
 | Partitionierung und Verschlüsselungs-Layout | Per „Software“-App installierte Flatpaks |
 | Secrets (verschlüsselt, sobald eingerichtet) | Der age-Schlüssel und das LUKS-Passwort → Passwortmanager |
 | | Steam-Spiele (lädt Steam neu), WLAN-Passwörter |

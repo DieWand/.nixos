@@ -73,8 +73,8 @@ Ausgelassene IDEs nachholen: in `hosts/amboss/default.nix`
    ```
    Das Installationsskript hat den Stand des Geräts (u. a. `flake.lock` mit den
    exakten Paketversionen) bereits lokal committet; `just sync` lädt ihn hoch.
-4. Einmalig von Hand: `rustup default stable`; in Firefox, Steam und den
-   JetBrains-IDEs anmelden; Flatpaks neu installieren; persönliche Daten aus dem
+4. Einmalig von Hand: `rustup default stable`; in Dashlane (Firefox-Symbolleiste),
+   Steam und den JetBrains-IDEs anmelden – die Add-ons selbst sind schon installiert; Flatpaks neu installieren; persönliche Daten aus dem
    Backup zurückspielen ([05](05-daten-und-secrets.md)).
 
 ## Manuelle Installation (falls das Skript scheitert)

@@ -81,6 +81,7 @@ Entfernen: Zeile löschen, `just switch`.
 | Symbole im Dock | `favorite-apps` in `modules/home/gnome.nix` (Name der `.desktop`-Datei) |
 | GNOME-Erweiterung | `programs.gnome-shell.extensions` in `gnome.nix` (`pkgs.gnomeExtensions.…`) |
 | GNOME-Einstellung | `dconf.settings` in `gnome.nix`. Schlüssel finden: `dconf watch /` laufen lassen und die Einstellung in der GUI umstellen |
+| Firefox-Add-ons (fest installiert) | `ExtensionSettings` in `modules/home/browser.nix` – Anleitung steht oben in der Datei |
 | Shell-Kürzel und Ersatzbefehle (`ls`→eza usw.) | `shellAbbrs`, `shellAliases` in `shell.nix` |
 | Git-Name/E-Mail | `modules/home/git.nix` |
 | Schwelle der Update-Erinnerung | `reminderDays` in `shortcuts.nix` |
